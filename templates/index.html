@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Flask Calculator</title>
+  <style>
+    :root { font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Noto Sans', sans-serif; }
+    body { display:flex; min-height:100vh; margin:0; background:#f6f7fb; color:#111; }
+    .card { width: 100%; max-width: 460px; margin:auto; background:#fff; padding:24px; border-radius:16px; box-shadow:0 6px 20px rgba(0,0,0,.08); }
+    h1 { margin:0 0 12px; font-size:24px; }
+    form { display:grid; gap:12px; }
+    .row { display:flex; gap:8px; align-items:center; }
+    input[type=number], select { flex:1; padding:10px 12px; border:1px solid #d9dce3; border-radius:10px; font-size:16px; }
+    button { padding:10px 14px; border:0; background:#111; color:#fff; border-radius:10px; font-size:16px; cursor:pointer; }
+    .muted { color:#606670; font-size:13px; }
+    .result { padding:12px; border-radius:10px; background:#f0f7ff; border:1px solid #cfe3ff; }
+    .error { padding:12px; border-radius:10px; background:#fff5f5; border:1px solid #ffd1d1; color:#b00020; }
+    footer { margin-top: 8px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Calculator</h1>
+    <form method="post">
+      <div class="row">
+        <input type="number" name="a" step="any" placeholder="First number" value="{{ a }}" required />
+        <select name="op">
+          <option value="+" {{ 'selected' if op == '+' else '' }}>+</option>
+          <option value="-" {{ 'selected' if op == '-' else '' }}>−</option>
+          <option value="*" {{ 'selected' if op == '*' else '' }}>×</option>
+          <option value="/" {{ 'selected' if op == '/' else '' }}>÷</option>
+        </select>
+        <input type="number" name="b" step="any" placeholder="Second number" value="{{ b }}" required />
+      </div>
+      <button type="submit">Calculate</button>
+    </form>
+
+    {% if result is not none %}
+      <div class="result" style="margin-top:12px;">Result: <strong>{{ result }}</strong></div>
+    {% endif %}
+
+    {% if error %}
+      <div class="error" style="margin-top:12px;">{{ error }}</div>
+    {% endif %}
+
+    <footer class="muted">Supported: addition, subtraction, multiplication, division.</footer>
+  </div>
+</body>
+</html>
